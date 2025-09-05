@@ -58,3 +58,30 @@ h2 {
   color: #3b82f6;
   text-decoration: none;
   font-weight: bold;
+  transition: color 0.3s;
+}
+
+.project a:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+#contact a {
+  color: #3b82f6;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+#contact a:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+footer {
+  text-align: center;
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 20px;
+  margin-top: 40px;
+  font-size: 0.9em;
+}
