@@ -1,55 +1,685 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>معرض أعمال عبدالرحمن</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSecure Integration Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: white;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            background: linear-gradient(45deg, #00d4ff, #ff0080);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            color: #64ffda;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 5px;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+        
+        .tab-button {
+            background: transparent;
+            border: none;
+            color: #64ffda;
+            padding: 12px 24px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        .tab-button:hover {
+            background: rgba(100, 255, 218, 0.1);
+            box-shadow: 0 0 20px rgba(100, 255, 218, 0.3);
+        }
+        
+        .tab-button.active {
+            background: rgba(100, 255, 218, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(100, 255, 218, 0.4);
+        }
+        
+        .tab-content {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .strategy-card {
+            background: linear-gradient(135deg, #0f3460 0%, #e94560 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .strategy-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .strategy-card:hover::before {
+            left: 100%;
+        }
+        
+        .strategy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(100, 255, 218, 0.3);
+        }
+        
+        .strategy-card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            color: #64ffda;
+        }
+        
+        .assessment-form {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+            border: 1px solid #dee2e6;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #0f3460;
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: #64ffda;
+            box-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+        }
+        
+        button {
+            background: linear-gradient(135deg, #0f3460 0%, #e94560 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(100, 255, 218, 0.4);
+        }
+        
+        .results {
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-top: 1rem;
+            display: none;
+            border: 1px solid rgba(100, 255, 218, 0.3);
+        }
+        
+        .risk-level {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .risk-critical { background: #ff4757; color: white; }
+        .risk-high { background: #ff7675; color: white; }
+        .risk-medium { background: #fdcb6e; color: #2d3436; }
+        .risk-low { background: #00b894; color: white; }
+        
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            border-left: 4px solid #64ffda;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 1.5rem;
+            width: 12px;
+            height: 12px;
+            background: #64ffda;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #64ffda;
+        }
+        
+        .phase-title {
+            font-weight: bold;
+            color: #0f3460;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .security-badge {
+            display: inline-block;
+            background: #e94560;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-left: 8px;
+        }
+        
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .checklist li {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            margin-bottom: 0.5rem;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #00b894;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .checklist li:hover {
+            background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+            transform: translateX(5px);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .checklist li.checked {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            text-decoration: line-through;
+            opacity: 0.7;
+            border-left-color: #28a745;
+        }
+        
+        .threat-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .threat-critical { background: #ff4757; }
+        .threat-high { background: #ff7675; }
+        .threat-medium { background: #fdcb6e; }
+        .threat-low { background: #00b894; }
+        
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .tab-button {
+                margin-bottom: 5px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>👋 أهلاً، أنا عبدالرحمن هديب</h1>
-    <p>طالب أمن سيبراني | مهتم بالذكاء الاصطناعي والبرمجة</p>
-  </header>
-
-  <section id="about">
-    <h2>نبذة عني</h2>
-    <p>
-      أنا طالب بعمر 22 عامًا متخصص في الأمن السيبراني. عندي خبرة في:
-      Java، الشبكات، تحليل البيانات باستخدام Power BI، 
-      وأساسيات التشفير والتحليل الجنائي الرقمي.
-    </p>
-  </section>
-
-  <section id="projects">
-    <h2>📂 مشاريعي</h2>
-    <div class="project">
-      <h3>🔐 أداة أمن معلومات</h3>
-      <p>مشروع تجريبي لفحص الثغرات وحماية الشبكات.</p>
-      <a href="https://github.com/username/project1" target="_blank">شاهد على GitHub</a>
+    <div class="container">
+        <header>
+            <h1>🔐 CyberSecure Integration Hub</h1>
+            <p class="subtitle">Enterprise cybersecurity integration strategies and frameworks</p>
+        </header>
+        
+        <nav class="nav-tabs">
+            <button class="tab-button active" onclick="showTab('overview')">Security Overview</button>
+            <button class="tab-button" onclick="showTab('assessment')">Risk Assessment</button>
+            <button class="tab-button" onclick="showTab('strategies')">Frameworks</button>
+            <button class="tab-button" onclick="showTab('roadmap')">Implementation</button>
+            <button class="tab-button" onclick="showTab('checklist')">Compliance</button>
+        </nav>
+        
+        <div id="overview" class="tab-content active">
+            <h2>Cybersecurity Integration Strategies</h2>
+            <div class="strategy-grid">
+                <div class="strategy-card" onclick="showDetails('security-stack')">
+                    <h3>🛡️ Security Stack Integration</h3>
+                    <p>Unified SIEM, EDR, XDR, and threat intelligence platforms for comprehensive visibility and response.</p>
+                </div>
+                <div class="strategy-card" onclick="showDetails('identity-access')">
+                    <h3>🔑 Identity & Access Management</h3>
+                    <p>Zero-trust architecture with SSO, PAM, and identity governance across hybrid environments.</p>
+                </div>
+                <div class="strategy-card" onclick="showDetails('cloud-security')">
+                    <h3>☁️ Cloud Security Posture</h3>
+                    <p>Multi-cloud security integration with CSPM, CWPP, and cloud-native security controls.</p>
+                </div>
+                <div class="strategy-card" onclick="showDetails('compliance')">
+                    <h3>📋 Compliance & Governance</h3>
+                    <p>Integrated GRC platforms for SOC2, ISO27001, NIST, and regulatory compliance management.</p>
+                </div>
+            </div>
+            
+            <div id="details" style="margin-top: 2rem; display: none; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 1.5rem; border-radius: 15px;">
+                <h3 id="details-title" style="color: #0f3460;"></h3>
+                <p id="details-content" style="margin-bottom: 1rem;"></p>
+                <ul id="details-list" style="color: #555;"></ul>
+            </div>
+        </div>
+        
+        <div id="assessment" class="tab-content">
+            <h2>Cybersecurity Integration Risk Assessment</h2>
+            <div class="assessment-form">
+                <div class="form-group">
+                    <label for="integration-type">Integration Scope:</label>
+                    <select id="integration-type">
+                        <option value="security-stack">Security Stack Consolidation</option>
+                        <option value="identity-access">Identity & Access Management</option>
+                        <option value="cloud-security">Cloud Security Integration</option>
+                        <option value="compliance">Compliance & GRC Integration</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="environment">Environment Type:</label>
+                    <select id="environment">
+                        <option value="on-premise">On-Premise</option>
+                        <option value="hybrid">Hybrid Cloud</option>
+                        <option value="multi-cloud">Multi-Cloud</option>
+                        <option value="cloud-native">Cloud-Native</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="compliance">Compliance Requirements:</label>
+                    <select id="compliance">
+                        <option value="basic">Basic (Internal policies)</option>
+                        <option value="industry">Industry Standards (PCI, HIPAA)</option>
+                        <option value="government">Government (FedRAMP, FISMA)</option>
+                        <option value="international">International (GDPR, ISO27001)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="threat-level">Threat Landscape:</label>
+                    <select id="threat-level">
+                        <option value="low">Low Risk Industry</option>
+                        <option value="medium">Medium Risk (Healthcare, Education)</option>
+                        <option value="high">High Risk (Financial, Critical Infrastructure)</option>
+                        <option value="nation-state">Nation-State Target</option>
+                    </select>
+                </div>
+                
+                <button onclick="generateSecurityAssessment()">Generate Security Assessment</button>
+            </div>
+            
+            <div id="assessment-results" class="results">
+                <h3>🔍 Cybersecurity Integration Assessment</h3>
+                <div id="assessment-content"></div>
+            </div>
+        </div>
+        
+        <div id="strategies" class="tab-content">
+            <h2>Cybersecurity Integration Frameworks</h2>
+            <h3>NIST Cybersecurity Framework Integration Model</h3>
+            
+            <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 1.5rem; border-radius: 15px; margin: 1rem 0; border-left: 4px solid #0f3460;">
+                <h4>🎯 IDENTIFY Phase <span class="security-badge">Critical</span></h4>
+                <p>• Asset inventory and classification across all environments<br>
+                • Risk assessment and threat modeling integration<br>
+                • Governance and compliance mapping<br>
+                • Business context and impact analysis</p>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 1.5rem; border-radius: 15px; margin: 1rem 0; border-left: 4px solid #e94560;">
+                <h4>🛡️ PROTECT Phase <span class="security-badge">High</span></h4>
+                <p>• Identity and access management integration<br>
+                • Data protection and encryption standards<br>
+                • Protective technology deployment<br>
+                • Security awareness and training programs</p>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 1.5rem; border-radius: 15px; margin: 1rem 0; border-left: 4px solid #fdcb6e;">
+                <h4>🔍 DETECT Phase <span class="security-badge">High</span></h4>
+                <p>• Continuous monitoring and SIEM integration<br>
+                • Anomaly detection and behavioral analytics<br>
+                • Threat intelligence integration<br>
+                • Security event correlation and analysis</p>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 1.5rem; border-radius: 15px; margin: 1rem 0; border-left: 4px solid #ff7675;">
+                <h4>⚡ RESPOND Phase <span class="security-badge">Critical</span></h4>
+                <p>• Incident response plan integration<br>
+                • Security orchestration and automation<br>
+                • Communication and coordination protocols<br>
+                • Containment and mitigation procedures</p>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 1.5rem; border-radius: 15px; margin: 1rem 0; border-left: 4px solid #00b894;">
+                <h4>🔄 RECOVER Phase <span class="security-badge">Medium</span></h4>
+                <p>• Recovery planning and procedures<br>
+                • Business continuity integration<br>
+                • Lessons learned and improvement<br>
+                • Communication and reputation management</p>
+            </div>
+        </div>
+        
+        <div id="roadmap" class="tab-content">
+            <h2>Security Integration Implementation Roadmap</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="phase-title">Phase 1: Security Assessment & Planning (Weeks 1-6)</div>
+                    <p><span class="threat-indicator threat-critical"></span>Current state security posture evaluation, threat landscape analysis, and compliance gap assessment. Establish integration governance and security requirements.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="phase-title">Phase 2: Architecture & Design (Weeks 7-12)</div>
+                    <p><span class="threat-indicator threat-high"></span>Security architecture design, integration patterns selection, and zero-trust model implementation planning. Define security controls and monitoring strategy.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="phase-title">Phase 3: Core Security Implementation (Weeks 13-24)</div>
+                    <p><span class="threat-indicator threat-high"></span>Deploy core security stack integration, implement IAM solutions, and establish baseline security monitoring. Conduct security testing and validation.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="phase-title">Phase 4: Advanced Integration & Automation (Weeks 25-32)</div>
+                    <p><span class="threat-indicator threat-medium"></span>Implement security orchestration, deploy advanced threat detection, and integrate compliance reporting. Establish incident response automation.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="phase-title">Phase 5: Optimization & Continuous Improvement (Weeks 33-40)</div>
+                    <p><span class="threat-indicator threat-low"></span>Performance optimization, threat hunting capabilities, and security metrics dashboard. Establish continuous security improvement processes.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="checklist" class="tab-content">
+            <h2>Cybersecurity Integration Compliance Checklist</h2>
+            
+            <h3>🔒 Pre-Integration Security Requirements</h3>
+            <ul class="checklist">
+                <li onclick="toggleCheck(this)">✓ Complete comprehensive security risk assessment</li>
+                <li onclick="toggleCheck(this)">✓ Document current security architecture and controls</li>
+                <li onclick="toggleCheck(this)">✓ Identify compliance requirements and regulations</li>
+                <li onclick="toggleCheck(this)">✓ Establish security governance and approval processes</li>
+                <li onclick="toggleCheck(this)">✓ Define security integration success criteria and KPIs</li>
+            </ul>
+            
+            <h3>🛡️ Security Implementation Phase</h3>
+            <ul class="checklist">
+                <li onclick="toggleCheck(this)">✓ Implement zero-trust network architecture principles</li>
+                <li onclick="toggleCheck(this)">✓ Deploy unified identity and access management</li>
+                <li onclick="toggleCheck(this)">✓ Integrate SIEM/SOAR platforms for centralized monitoring</li>
+                <li onclick="toggleCheck(this)">✓ Establish security orchestration and automation</li>
+                <li onclick="toggleCheck(this)">✓ Implement data classification and protection controls</li>
+                <li onclick="toggleCheck(this)">✓ Deploy endpoint detection and response (EDR) solutions</li>
+                <li onclick="toggleCheck(this)">✓ Integrate threat intelligence feeds and analysis</li>
+            </ul>
+            
+            <h3>📋 Compliance and Validation</h3>
+            <ul class="checklist">
+                <li onclick="toggleCheck(this)">✓ Conduct security control testing and validation</li>
+                <li onclick="toggleCheck(this)">✓ Perform penetration testing and vulnerability assessments</li>
+                <li onclick="toggleCheck(this)">✓ Complete compliance audit and certification</li>
+                <li onclick="toggleCheck(this)">✓ Document security procedures and runbooks</li>
+                <li onclick="toggleCheck(this)">✓ Establish incident response and recovery procedures</li>
+                <li onclick="toggleCheck(this)">✓ Implement continuous security monitoring and alerting</li>
+                <li onclick="toggleCheck(this)">✓ Create security awareness training programs</li>
+            </ul>
+        </div>
     </div>
-
-    <div class="project">
-      <h3>📊 تحليل بيانات</h3>
-      <p>لوحة Power BI لتحليل بيانات الأكاديمية.</p>
-      <a href="https://github.com/username/project2" target="_blank">شاهد على GitHub</a>
-    </div>
-
-    <div class="project">
-      <h3>🤖 أدوات AI</h3>
-      <p>تجميع واستخدام أدوات ذكاء اصطناعي مجانية للتعليم.</p>
-      <a href="https://github.com/username/project3" target="_blank">شاهد على GitHub</a>
-    </div>
-  </section>
-
-  <section id="contact">
-    <h2>📬 تواصل معي</h2>
-    <p>✉️ البريد: <a href="mailto:youremail@example.com">youremail@example.com</a></p>
-    <p>🔗 LinkedIn: <a href="https://linkedin.com/in/yourprofile" target="_blank">حسابي</a></p>
-  </section>
-
-  <footer>
-    <p>© 2025 عبدالرحمن هديب - جميع الحقوق محفوظة</p>
-  </footer>
-</body>
-</html>
+    
+    <script>
+        function showTab(tabName) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        function showDetails(type) {
+            const details = {
+                'security-stack': {
+                    title: "Security Stack Integration Strategy",
+                    content: "Consolidate and integrate security tools for unified visibility, reduced complexity, and improved threat response capabilities.",
+                    list: [
+                        "SIEM/SOAR platform integration and correlation",
+                        "EDR/XDR unified endpoint protection",
+                        "Threat intelligence platform integration",
+                        "Security orchestration and automation",
+                        "Vulnerability management consolidation",
+                        "Network security monitoring integration"
+                    ]
+                },
+                'identity-access': {
+                    title: "Identity & Access Management Integration",
+                    content: "Implement zero-trust identity architecture with centralized authentication, authorization, and privileged access management.",
+                    list: [
+                        "Single Sign-On (SSO) across all applications",
+                        "Multi-Factor Authentication (MFA) enforcement",
+                        "Privileged Access Management (PAM) integration",
+                        "Identity governance and administration",
+                        "Just-in-time access provisioning",
+                        "Continuous identity verification and monitoring"
+                    ]
+                },
+                'cloud-security': {
+                    title: "Cloud Security Posture Integration",
+                    content: "Unified security across multi-cloud environments with comprehensive visibility and control over cloud resources and workloads.",
+                    list: [
+                        "Cloud Security Posture Management (CSPM)",
+                        "Cloud Workload Protection Platform (CWPP)",
+                        "Container and Kubernetes security integration",
+                        "Cloud access security broker (CASB) deployment",
+                        "DevSecOps pipeline integration",
+                        "Multi-cloud compliance and governance"
+                    ]
+                },
+                'compliance': {
+                    title: "Compliance & Governance Integration",
+                    content: "Integrated governance, risk, and compliance platform for automated compliance monitoring and reporting across frameworks.",
+                    list: [
+                        "Automated compliance monitoring and reporting",
+                        "Risk assessment and management integration",
+                        "Policy management and enforcement",
+                        "Audit trail and evidence collection",
+                        "Regulatory framework mapping (SOC2, ISO27001, NIST)",
+                        "Third-party risk management integration"
+                    ]
+                }
+            };
+            
+            const detail = details[type];
+            document.getElementById('details-title').textContent = detail.title;
+            document.getElementById('details-content').textContent = detail.content;
+            
+            const listElement = document.getElementById('details-list');
+            listElement.innerHTML = '';
+            detail.list.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                li.style.marginBottom = '0.5rem';
+                listElement.appendChild(li);
+            });
+            
+            document.getElementById('details').style.display = 'block';
+        }
+        
+        function generateSecurityAssessment() {
+            const integrationType = document.getElementById('integration-type').value;
+            const environment = document.getElementById('environment').value;
+            const compliance = document.getElementById('compliance').value;
+            const threatLevel = document.getElementById('threat-level').value;
+            
+            let riskLevel = "";
+            let approach = "";
+            let securityControls = "";
+            let timeline = "";
+            
+            // Determine risk level
+            if (threatLevel === 'nation-state' || compliance === 'government') {
+                riskLevel = '<span class="risk-level risk-critical">CRITICAL</span>';
+            } else if (threatLevel === 'high' || compliance === 'international') {
+                riskLevel = '<span class="risk-level risk-high">HIGH</span>';
+            } else if (threatLevel === 'medium' || compliance === 'industry') {
+                riskLevel = '<span class="risk-level risk-medium">MEDIUM</span>';
+            } else {
+                riskLevel = '<span class="risk-level risk-low">LOW</span>';
+            }
+            
+            // Generate recommendations based on selections
+            if (integrationType === 'security-stack') {
+                approach = "• Implement defense-in-depth strategy with layered security controls\n• Deploy SIEM/SOAR for centralized security operations\n• Integrate threat intelligence and automated response capabilities";
+                securityControls = "• 24/7 Security Operations Center (SOC) monitoring\n• Automated threat detection and response\n• Advanced persistent threat (APT) protection";
+                timeline = "16-24 weeks for full security stack integration";
+            } else if (integrationType === 'identity-access') {
+                approach = "• Implement zero-trust identity architecture\n• Deploy multi-factor authentication across all systems\n• Establish privileged access management controls";
+                securityControls = "• Identity governance and lifecycle management\n• Risk-based authentication and access controls\n• Continuous identity monitoring and analytics";
+                timeline = "12-18 weeks for complete IAM integration";
+            } else if (integrationType === 'cloud-security') {
+                approach = "• Deploy cloud security posture management (CSPM)\n• Implement cloud workload protection platform (CWPP)\n• Establish DevSecOps security integration";
+                securityControls = "• Multi-cloud security orchestration\n• Container and serverless security\n• Cloud compliance and governance automation";
+                timeline = "14-20 weeks for comprehensive cloud security integration";
+            } else {
+                approach = "• Deploy integrated GRC platform for compliance automation\n• Implement continuous compliance monitoring\n• Establish risk management and reporting frameworks";
+                securityControls = "• Automated compliance assessment and reporting\n• Risk-based security control implementation\n• Third-party security risk management";
+                timeline = "18-26 weeks for full compliance integration";
+            }
+            
+            document.getElementById('assessment-content').innerHTML = `
+                <h4>🎯 Security Risk Assessment</h4>
+                <p>Integration Type: <strong>${integrationType.replace('-', ' ').toUpperCase()}</strong></p>
+                <p>Overall Risk Level: ${riskLevel}</p>
+                <p>Environment: <strong>${environment.replace('-', ' ').toUpperCase()}</strong></p>
+                <p>Compliance Requirements: <strong>${compliance.toUpperCase()}</strong></p>
+                
+                <h4>🛡️ Recommended Security Approach</h4>
+                <pre style="white-space: pre-line; font-family: inherit; color: #64ffda;">${approach}</pre>
+                
+                <h4>🔒 Critical Security Controls</h4>
+                <pre style="white-space: pre-line; font-family: inherit; color: #64ffda;">${securityControls}</pre>
+                
+                <h4>⏱️ Implementation Timeline</h4>
+                <p style="color: #64ffda;"><strong>${timeline}</strong></p>
+                
+                <h4>🚨 Key Security Considerations</h4>
+                <p style="color: #ff7675;">
